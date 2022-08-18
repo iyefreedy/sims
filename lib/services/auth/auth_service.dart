@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:sims/models/auth_user.dart';
 import 'package:sims/services/auth/auth_provider.dart';
 import 'package:sims/services/auth/firebase_auth_provider.dart';
@@ -46,10 +45,4 @@ class AuthService implements AuthProvider {
   @override
   Future<void> sendPasswordReset({required String toEmail}) =>
       provider.sendEmailVerification();
-
-  @override
-  Future<IdTokenResult> getToken() {
-    // TODO: implement getToken
-    throw UnimplementedError();
-  }
 }

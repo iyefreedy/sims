@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/foundation.dart' show debugPrint;
 import 'package:sims/firebase_options.dart';
 import 'package:sims/models/auth_user.dart';
 import 'package:sims/services/auth/auth_exceptions.dart';
@@ -14,11 +15,12 @@ class FirebaseAuthProvider implements AuthProvider {
     required String email,
     required String password,
   }) async {
-    final userCollection = FirebaseFirestore.instance.collection('users');
     final roleCollection = FirebaseFirestore.instance.collection(role);
+    final userCollection = FirebaseFirestore.instance.collection('users');
+
     final document = await roleCollection.doc(uniqueNumber).get();
     if (!document.exists) {
-      throw UserNotFoundAuthException();
+      throw IdentityNumberAuthException(role);
     }
 
     try {
@@ -29,11 +31,15 @@ class FirebaseAuthProvider implements AuthProvider {
 
       final user = currentUser;
       if (user != null) {
+        await roleCollection.doc(uniqueNumber).update({
+          'user_id': user.id,
+        });
+
         await userCollection.doc(user.id).set({
           'unique_number': uniqueNumber,
           'role': role,
         });
-        await roleCollection.doc(uniqueNumber).update({'user_id': user.id});
+
         return user;
       } else {
         throw UserNotLoggedInAuthException();
@@ -46,10 +52,10 @@ class FirebaseAuthProvider implements AuthProvider {
       } else if (e.code == 'invalid-email') {
         throw InvalidEmailAuthException();
       } else {
-        throw GenericAuthException();
+        throw GenericAuthException(e.message);
       }
     } catch (_) {
-      throw GenericAuthException();
+      throw GenericAuthException('Autentikasi error');
     }
   }
 
@@ -93,10 +99,10 @@ class FirebaseAuthProvider implements AuthProvider {
       } else if (e.code == 'wrong-password') {
         throw WrongPasswordAuthException();
       } else {
-        throw GenericAuthException();
+        throw GenericAuthException(e.message);
       }
     } catch (_) {
-      throw GenericAuthException();
+      throw GenericAuthException('Autentikasi error');
     }
   }
 
@@ -131,20 +137,10 @@ class FirebaseAuthProvider implements AuthProvider {
         case 'firebase_auth/user-not-found':
           throw UserNotFoundAuthException();
         default:
-          throw GenericAuthException();
+          throw GenericAuthException(e.message);
       }
     } catch (_) {
-      throw GenericAuthException();
-    }
-  }
-
-  @override
-  Future<IdTokenResult> getToken() async {
-    final user = FirebaseAuth.instance.currentUser;
-    if (user != null) {
-      return await user.getIdTokenResult();
-    } else {
-      throw UserNotLoggedInAuthException();
+      throw GenericAuthException('Autentikasi error');
     }
   }
 }

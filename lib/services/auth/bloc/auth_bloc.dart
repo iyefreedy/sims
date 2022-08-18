@@ -109,6 +109,12 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       final email = event.email;
       final password = event.password;
 
+      emit(AuthStateRegistering(
+        isLoading: true,
+        role: role,
+        exception: null,
+      ));
+
       try {
         await provider.createUser(
           role: role,

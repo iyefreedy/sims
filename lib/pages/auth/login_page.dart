@@ -43,7 +43,7 @@ class _LoginPageState extends State<LoginPage> {
           } else if (e is WrongPasswordAuthException) {
             await showErrorDialog(context, e.message);
           } else if (e is GenericAuthException) {
-            await showErrorDialog(context, e.message);
+            await showErrorDialog(context, e.message!);
           }
         }
       },

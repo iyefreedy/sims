@@ -1,15 +1,12 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class AuthUser {
   String id;
+  String email;
   bool isEmailVerified;
 
   AuthUser.fromFirebase(User user)
       : id = user.uid,
+        email = user.email!,
         isEmailVerified = user.emailVerified;
-
-  AuthUser.fromFirestore(QueryDocumentSnapshot<Map<String, dynamic>> snapshot)
-      : id = snapshot.id,
-        isEmailVerified = snapshot.data()['email_verified'];
 }

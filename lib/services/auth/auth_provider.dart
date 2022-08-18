@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:sims/models/auth_user.dart';
 
 abstract class AuthProvider {
@@ -17,5 +16,4 @@ abstract class AuthProvider {
   Future<void> logOut();
   Future<void> sendEmailVerification();
   Future<void> sendPasswordReset({required String toEmail});
-  Future<IdTokenResult> getToken();
 }

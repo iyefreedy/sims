@@ -1,1 +1,1 @@
-enum Roles { student, teacher }
+enum Roles { student, teacher, admin }

@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sims/constants/routes.dart';
 import 'package:sims/helpers/loading/loading_screen.dart';
+import 'package:sims/pages/admin/class_page.dart';
+import 'package:sims/pages/admin/student_list_page.dart';
 import 'package:sims/pages/auth/register_student_page.dart';
 import 'package:sims/pages/auth/register_teacher_page.dart';
 import 'package:sims/pages/auth/verification_page.dart';
@@ -27,12 +29,14 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        textTheme: GoogleFonts.openSansTextTheme(),
-      ),
+          textTheme: GoogleFonts.openSansTextTheme(),
+          scaffoldBackgroundColor: const Color(0xffF5F4F4)),
       routes: {
         loginRoute: (context) => const LoginPage(),
         registerRoute: (context) => const RegisterStudentPage(),
         homeRoute: (context) => const HomePage(),
+        'data-siswa': (context) => const StudentListPage(),
+        classRoute: (context) => const ClassPage(),
       },
       home: BlocProvider(
         create: (context) => AuthBloc(FirebaseAuthProvider()),
