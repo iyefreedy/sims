@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "96198195327",
+    "firebase_url": "https://sims-7c90b-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "sims-7c90b",
+    "storage_bucket": "sims-7c90b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:96198195327:android:71c382cbfbcdcbf815674a",
+        "android_client_info": {
+          "package_name": "com.example.sims"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "96198195327-6qf6kcsf12btj5muor53mpnskjb7ms1g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCOTE2WbBbSdDDl_0wWpF0-vpW4_wYLYqU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "96198195327-6qf6kcsf12btj5muor53mpnskjb7ms1g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,4 @@
+enum ClassroomType {
+  attendance,
+  grade,
+}
