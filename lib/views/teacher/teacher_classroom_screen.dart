@@ -108,19 +108,26 @@ class _ClassroomList extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Expanded(
-            child: ListView.builder(
-              itemCount: classrooms.length,
-              itemBuilder: (context, index) {
-                final entries = classrooms.entries.toList();
-                final map = entries[index];
+            child: classrooms.isEmpty
+                ? Center(
+                    child: Text(
+                      'Belum ada data',
+                      style: Theme.of(context).textTheme.headline6,
+                    ),
+                  )
+                : ListView.builder(
+                    itemCount: classrooms.length,
+                    itemBuilder: (context, index) {
+                      final entries = classrooms.entries.toList();
+                      final map = entries[index];
 
-                return _ClassroomItem(
-                  argumentType: type,
-                  classroom: map.key,
-                  schedules: map.value,
-                );
-              },
-            ),
+                      return _ClassroomItem(
+                        argumentType: type,
+                        classroom: map.key,
+                        schedules: map.value,
+                      );
+                    },
+                  ),
           ),
         ],
       ),

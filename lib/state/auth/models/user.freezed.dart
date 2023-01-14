@@ -22,7 +22,10 @@ User _$UserFromJson(Map<String, dynamic> json) {
 mixin _$User {
   String get id => throw _privateConstructorUsedError;
   Role get role => throw _privateConstructorUsedError;
-  Object get info => throw _privateConstructorUsedError;
+  @JsonKey(name: 'guru')
+  Teacher? get teacher => throw _privateConstructorUsedError;
+  @JsonKey(name: 'siswa')
+  Student? get student => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -34,7 +37,14 @@ abstract class $UserCopyWith<$Res> {
   factory $UserCopyWith(User value, $Res Function(User) then) =
       _$UserCopyWithImpl<$Res, User>;
   @useResult
-  $Res call({String id, Role role, Object info});
+  $Res call(
+      {String id,
+      Role role,
+      @JsonKey(name: 'guru') Teacher? teacher,
+      @JsonKey(name: 'siswa') Student? student});
+
+  $TeacherCopyWith<$Res>? get teacher;
+  $StudentCopyWith<$Res>? get student;
 }
 
 /// @nodoc
@@ -52,7 +62,8 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
   $Res call({
     Object? id = null,
     Object? role = null,
-    Object? info = null,
+    Object? teacher = freezed,
+    Object? student = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -63,8 +74,39 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
           ? _value.role
           : role // ignore: cast_nullable_to_non_nullable
               as Role,
-      info: null == info ? _value.info : info,
+      teacher: freezed == teacher
+          ? _value.teacher
+          : teacher // ignore: cast_nullable_to_non_nullable
+              as Teacher?,
+      student: freezed == student
+          ? _value.student
+          : student // ignore: cast_nullable_to_non_nullable
+              as Student?,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $TeacherCopyWith<$Res>? get teacher {
+    if (_value.teacher == null) {
+      return null;
+    }
+
+    return $TeacherCopyWith<$Res>(_value.teacher!, (value) {
+      return _then(_value.copyWith(teacher: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $StudentCopyWith<$Res>? get student {
+    if (_value.student == null) {
+      return null;
+    }
+
+    return $StudentCopyWith<$Res>(_value.student!, (value) {
+      return _then(_value.copyWith(student: value) as $Val);
+    });
   }
 }
 
@@ -74,7 +116,16 @@ abstract class _$$_UserCopyWith<$Res> implements $UserCopyWith<$Res> {
       __$$_UserCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String id, Role role, Object info});
+  $Res call(
+      {String id,
+      Role role,
+      @JsonKey(name: 'guru') Teacher? teacher,
+      @JsonKey(name: 'siswa') Student? student});
+
+  @override
+  $TeacherCopyWith<$Res>? get teacher;
+  @override
+  $StudentCopyWith<$Res>? get student;
 }
 
 /// @nodoc
@@ -88,7 +139,8 @@ class __$$_UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res, _$_User>
   $Res call({
     Object? id = null,
     Object? role = null,
-    Object? info = null,
+    Object? teacher = freezed,
+    Object? student = freezed,
   }) {
     return _then(_$_User(
       id: null == id
@@ -99,7 +151,14 @@ class __$$_UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res, _$_User>
           ? _value.role
           : role // ignore: cast_nullable_to_non_nullable
               as Role,
-      info: null == info ? _value.info : info,
+      teacher: freezed == teacher
+          ? _value.teacher
+          : teacher // ignore: cast_nullable_to_non_nullable
+              as Teacher?,
+      student: freezed == student
+          ? _value.student
+          : student // ignore: cast_nullable_to_non_nullable
+              as Student?,
     ));
   }
 }
@@ -108,7 +167,11 @@ class __$$_UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res, _$_User>
 
 @JsonSerializable(explicitToJson: true)
 class _$_User implements _User {
-  _$_User({required this.id, required this.role, required this.info});
+  _$_User(
+      {required this.id,
+      required this.role,
+      @JsonKey(name: 'guru') required this.teacher,
+      @JsonKey(name: 'siswa') required this.student});
 
   factory _$_User.fromJson(Map<String, dynamic> json) => _$$_UserFromJson(json);
 
@@ -117,11 +180,15 @@ class _$_User implements _User {
   @override
   final Role role;
   @override
-  final Object info;
+  @JsonKey(name: 'guru')
+  final Teacher? teacher;
+  @override
+  @JsonKey(name: 'siswa')
+  final Student? student;
 
   @override
   String toString() {
-    return 'User(id: $id, role: $role, info: $info)';
+    return 'User(id: $id, role: $role, teacher: $teacher, student: $student)';
   }
 
   @override
@@ -131,13 +198,13 @@ class _$_User implements _User {
             other is _$_User &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.role, role) || other.role == role) &&
-            const DeepCollectionEquality().equals(other.info, info));
+            (identical(other.teacher, teacher) || other.teacher == teacher) &&
+            (identical(other.student, student) || other.student == student));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, id, role, const DeepCollectionEquality().hash(info));
+  int get hashCode => Object.hash(runtimeType, id, role, teacher, student);
 
   @JsonKey(ignore: true)
   @override
@@ -157,7 +224,8 @@ abstract class _User implements User {
   factory _User(
       {required final String id,
       required final Role role,
-      required final Object info}) = _$_User;
+      @JsonKey(name: 'guru') required final Teacher? teacher,
+      @JsonKey(name: 'siswa') required final Student? student}) = _$_User;
 
   factory _User.fromJson(Map<String, dynamic> json) = _$_User.fromJson;
 
@@ -166,7 +234,11 @@ abstract class _User implements User {
   @override
   Role get role;
   @override
-  Object get info;
+  @JsonKey(name: 'guru')
+  Teacher? get teacher;
+  @override
+  @JsonKey(name: 'siswa')
+  Student? get student;
   @override
   @JsonKey(ignore: true)
   _$$_UserCopyWith<_$_User> get copyWith => throw _privateConstructorUsedError;

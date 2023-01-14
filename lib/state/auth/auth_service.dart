@@ -12,7 +12,7 @@ class AuthService {
   static const AuthService _instance = AuthService._();
   factory AuthService() => _instance;
 
-  final baseUrl = 'http://192.168.54.47';
+  final baseUrl = 'http://192.168.100.8';
   final port = 8000;
 
   Future<bool> loginWithToken(Token token) async {

@@ -1,5 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:sims/state/auth/models/role.dart';
+import 'package:sims/state/models/student.dart';
+import 'package:sims/state/models/teacher.dart';
 
 part 'user.freezed.dart';
 part 'user.g.dart';
@@ -10,7 +12,8 @@ class User with _$User {
   factory User({
     required String id,
     required Role role,
-    required Object info,
+    @JsonKey(name: 'guru') required Teacher? teacher,
+    @JsonKey(name: 'siswa') required Student? student,
   }) = _User;
 
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);

@@ -27,6 +27,8 @@ mixin _$Classroom {
   String get year => throw _privateConstructorUsedError;
   @JsonKey(name: 'kelompok')
   String get group => throw _privateConstructorUsedError;
+  @JsonKey(name: 'guru_id')
+  String? get teacherId => throw _privateConstructorUsedError;
   String get semester => throw _privateConstructorUsedError;
   @JsonKey(name: 'siswa')
   @ListStudentConverter()
@@ -54,6 +56,8 @@ abstract class $ClassroomCopyWith<$Res> {
           String year,
       @JsonKey(name: 'kelompok')
           String group,
+      @JsonKey(name: 'guru_id')
+          String? teacherId,
       String semester,
       @JsonKey(name: 'siswa')
       @ListStudentConverter()
@@ -80,6 +84,7 @@ class _$ClassroomCopyWithImpl<$Res, $Val extends Classroom>
     Object? name = null,
     Object? year = null,
     Object? group = null,
+    Object? teacherId = freezed,
     Object? semester = null,
     Object? students = null,
     Object? attendances = null,
@@ -101,6 +106,10 @@ class _$ClassroomCopyWithImpl<$Res, $Val extends Classroom>
           ? _value.group
           : group // ignore: cast_nullable_to_non_nullable
               as String,
+      teacherId: freezed == teacherId
+          ? _value.teacherId
+          : teacherId // ignore: cast_nullable_to_non_nullable
+              as String?,
       semester: null == semester
           ? _value.semester
           : semester // ignore: cast_nullable_to_non_nullable
@@ -132,6 +141,8 @@ abstract class _$$_ClassroomCopyWith<$Res> implements $ClassroomCopyWith<$Res> {
           String year,
       @JsonKey(name: 'kelompok')
           String group,
+      @JsonKey(name: 'guru_id')
+          String? teacherId,
       String semester,
       @JsonKey(name: 'siswa')
       @ListStudentConverter()
@@ -156,6 +167,7 @@ class __$$_ClassroomCopyWithImpl<$Res>
     Object? name = null,
     Object? year = null,
     Object? group = null,
+    Object? teacherId = freezed,
     Object? semester = null,
     Object? students = null,
     Object? attendances = null,
@@ -177,6 +189,10 @@ class __$$_ClassroomCopyWithImpl<$Res>
           ? _value.group
           : group // ignore: cast_nullable_to_non_nullable
               as String,
+      teacherId: freezed == teacherId
+          ? _value.teacherId
+          : teacherId // ignore: cast_nullable_to_non_nullable
+              as String?,
       semester: null == semester
           ? _value.semester
           : semester // ignore: cast_nullable_to_non_nullable
@@ -205,6 +221,8 @@ class _$_Classroom implements _Classroom {
           required this.year,
       @JsonKey(name: 'kelompok')
           required this.group,
+      @JsonKey(name: 'guru_id')
+          required this.teacherId,
       required this.semester,
       @JsonKey(name: 'siswa')
       @ListStudentConverter()
@@ -230,6 +248,9 @@ class _$_Classroom implements _Classroom {
   @JsonKey(name: 'kelompok')
   final String group;
   @override
+  @JsonKey(name: 'guru_id')
+  final String? teacherId;
+  @override
   final String semester;
   final List<Student> _students;
   @override
@@ -251,7 +272,7 @@ class _$_Classroom implements _Classroom {
 
   @override
   String toString() {
-    return 'Classroom(id: $id, name: $name, year: $year, group: $group, semester: $semester, students: $students, attendances: $attendances)';
+    return 'Classroom(id: $id, name: $name, year: $year, group: $group, teacherId: $teacherId, semester: $semester, students: $students, attendances: $attendances)';
   }
 
   @override
@@ -263,6 +284,8 @@ class _$_Classroom implements _Classroom {
             (identical(other.name, name) || other.name == name) &&
             (identical(other.year, year) || other.year == year) &&
             (identical(other.group, group) || other.group == group) &&
+            (identical(other.teacherId, teacherId) ||
+                other.teacherId == teacherId) &&
             (identical(other.semester, semester) ||
                 other.semester == semester) &&
             const DeepCollectionEquality().equals(other._students, _students) &&
@@ -278,6 +301,7 @@ class _$_Classroom implements _Classroom {
       name,
       year,
       group,
+      teacherId,
       semester,
       const DeepCollectionEquality().hash(_students),
       const DeepCollectionEquality().hash(_attendances));
@@ -305,6 +329,8 @@ abstract class _Classroom implements Classroom {
           required final String year,
       @JsonKey(name: 'kelompok')
           required final String group,
+      @JsonKey(name: 'guru_id')
+          required final String? teacherId,
       required final String semester,
       @JsonKey(name: 'siswa')
       @ListStudentConverter()
@@ -327,6 +353,9 @@ abstract class _Classroom implements Classroom {
   @override
   @JsonKey(name: 'kelompok')
   String get group;
+  @override
+  @JsonKey(name: 'guru_id')
+  String? get teacherId;
   @override
   String get semester;
   @override

@@ -15,6 +15,7 @@ _$_Teacher _$$_TeacherFromJson(Map<String, dynamic> json) => _$_Teacher(
       birthDate: const StringDateTimeConverter()
           .fromJson(json['tanggal_lahir'] as String),
       birthPlace: json['tempat_lahir'] as String,
+      classroomId: json['kelas_id'] as String?,
     );
 
 Map<String, dynamic> _$$_TeacherToJson(_$_Teacher instance) =>
@@ -27,4 +28,5 @@ Map<String, dynamic> _$$_TeacherToJson(_$_Teacher instance) =>
       'tanggal_lahir':
           const StringDateTimeConverter().toJson(instance.birthDate),
       'tempat_lahir': instance.birthPlace,
+      'kelas_id': instance.classroomId,
     };

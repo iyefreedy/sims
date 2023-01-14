@@ -29,8 +29,7 @@ class ScheduleListScreen extends ConsumerWidget {
             Expanded(
               child: asyncValueUser.when(
                 data: (user) {
-                  final userInfo = user.info as Map<String, dynamic>;
-                  final teacher = Teacher.fromJson(userInfo);
+                  final teacher = user.teacher!;
                   // final filteredSchedules = [
                   //   for (var schedule in meetings)
                   //     if (schedule.teacher.id == teacher.id) schedule,

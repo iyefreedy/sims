@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sims/app/routes.dart';
 import 'package:sims/arguments/teacher_grade_arguments.dart';
 import 'package:sims/state/models/classroom.dart';
+import 'package:sims/test.dart';
 import 'package:sims/widgets/shimmer_loading_list.dart';
 
 import '../../state/auth/provider/auth_user_provider.dart';
@@ -36,8 +37,7 @@ class CourseListScreen extends ConsumerWidget {
             Expanded(
               child: asyncValueUser.when(
                 data: (user) {
-                  final userInfo = user.info as Map<String, dynamic>;
-                  final teacher = Teacher.fromJson(userInfo);
+                  final teacher = user.teacher!;
                   final filteredCourses = [
                     for (var schedule in classroom.students) schedule
                   ];

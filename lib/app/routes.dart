@@ -16,6 +16,7 @@ import 'package:sims/views/teacher/course_list_screen.dart';
 import 'package:sims/views/teacher/schedule_list_screen.dart';
 import 'package:sims/views/teacher/teacher_classroom_screen.dart';
 import 'package:sims/views/teacher/grade/teacher_grade_screen.dart';
+import 'package:sims/views/teacher/teacher_consult_screen.dart';
 import 'package:sims/views/teacher/teacher_meetings_screen.dart';
 import 'package:sims/views/teacher/teacher_profile_screen.dart';
 import 'package:sims/views/teacher/teacher_schedule_screen.dart';
@@ -31,6 +32,7 @@ const teacherMeetingsRoute = '/teacher/meeting';
 const teacherCourseRoute = '/teacher/course';
 const teacherScheduleToMeetingRoute = '/teacher/schedule-meeting';
 const teacherProfileRoute = '/teacher/profile';
+const teacherConsultRoute = '/teacher/consult';
 
 // Student reoute
 const studentScheduleRoute = '/student/schedule';
@@ -89,6 +91,14 @@ Route<MaterialPageRoute> onGenerateRoutes(RouteSettings settings) {
     case teacherProfileRoute:
       return MaterialPageRoute(
         builder: (context) => const TeacherProfileScreen(),
+        settings: settings,
+      );
+
+    case teacherConsultRoute:
+      return MaterialPageRoute(
+        builder: (context) => TeacherConsultScreen(
+          classroomId: settings.arguments as String,
+        ),
         settings: settings,
       );
 

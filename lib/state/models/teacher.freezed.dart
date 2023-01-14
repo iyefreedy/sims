@@ -34,6 +34,8 @@ mixin _$Teacher {
   DateTime get birthDate => throw _privateConstructorUsedError;
   @JsonKey(name: 'tempat_lahir')
   String get birthPlace => throw _privateConstructorUsedError;
+  @JsonKey(name: 'kelas_id')
+  String? get classroomId => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -59,7 +61,9 @@ abstract class $TeacherCopyWith<$Res> {
       @StringDateTimeConverter()
           DateTime birthDate,
       @JsonKey(name: 'tempat_lahir')
-          String birthPlace});
+          String birthPlace,
+      @JsonKey(name: 'kelas_id')
+          String? classroomId});
 }
 
 /// @nodoc
@@ -82,6 +86,7 @@ class _$TeacherCopyWithImpl<$Res, $Val extends Teacher>
     Object? address = null,
     Object? birthDate = null,
     Object? birthPlace = null,
+    Object? classroomId = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -112,6 +117,10 @@ class _$TeacherCopyWithImpl<$Res, $Val extends Teacher>
           ? _value.birthPlace
           : birthPlace // ignore: cast_nullable_to_non_nullable
               as String,
+      classroomId: freezed == classroomId
+          ? _value.classroomId
+          : classroomId // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 }
@@ -137,7 +146,9 @@ abstract class _$$_TeacherCopyWith<$Res> implements $TeacherCopyWith<$Res> {
       @StringDateTimeConverter()
           DateTime birthDate,
       @JsonKey(name: 'tempat_lahir')
-          String birthPlace});
+          String birthPlace,
+      @JsonKey(name: 'kelas_id')
+          String? classroomId});
 }
 
 /// @nodoc
@@ -157,6 +168,7 @@ class __$$_TeacherCopyWithImpl<$Res>
     Object? address = null,
     Object? birthDate = null,
     Object? birthPlace = null,
+    Object? classroomId = freezed,
   }) {
     return _then(_$_Teacher(
       id: null == id
@@ -187,6 +199,10 @@ class __$$_TeacherCopyWithImpl<$Res>
           ? _value.birthPlace
           : birthPlace // ignore: cast_nullable_to_non_nullable
               as String,
+      classroomId: freezed == classroomId
+          ? _value.classroomId
+          : classroomId // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -208,7 +224,9 @@ class _$_Teacher implements _Teacher {
       @StringDateTimeConverter()
           required this.birthDate,
       @JsonKey(name: 'tempat_lahir')
-          required this.birthPlace});
+          required this.birthPlace,
+      @JsonKey(name: 'kelas_id')
+          required this.classroomId});
 
   factory _$_Teacher.fromJson(Map<String, dynamic> json) =>
       _$$_TeacherFromJson(json);
@@ -234,10 +252,13 @@ class _$_Teacher implements _Teacher {
   @override
   @JsonKey(name: 'tempat_lahir')
   final String birthPlace;
+  @override
+  @JsonKey(name: 'kelas_id')
+  final String? classroomId;
 
   @override
   String toString() {
-    return 'Teacher(id: $id, nuptk: $nuptk, name: $name, gender: $gender, address: $address, birthDate: $birthDate, birthPlace: $birthPlace)';
+    return 'Teacher(id: $id, nuptk: $nuptk, name: $name, gender: $gender, address: $address, birthDate: $birthDate, birthPlace: $birthPlace, classroomId: $classroomId)';
   }
 
   @override
@@ -253,13 +274,15 @@ class _$_Teacher implements _Teacher {
             (identical(other.birthDate, birthDate) ||
                 other.birthDate == birthDate) &&
             (identical(other.birthPlace, birthPlace) ||
-                other.birthPlace == birthPlace));
+                other.birthPlace == birthPlace) &&
+            (identical(other.classroomId, classroomId) ||
+                other.classroomId == classroomId));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, id, nuptk, name, gender, address, birthDate, birthPlace);
+  int get hashCode => Object.hash(runtimeType, id, nuptk, name, gender, address,
+      birthDate, birthPlace, classroomId);
 
   @JsonKey(ignore: true)
   @override
@@ -290,7 +313,9 @@ abstract class _Teacher implements Teacher {
       @StringDateTimeConverter()
           required final DateTime birthDate,
       @JsonKey(name: 'tempat_lahir')
-          required final String birthPlace}) = _$_Teacher;
+          required final String birthPlace,
+      @JsonKey(name: 'kelas_id')
+          required final String? classroomId}) = _$_Teacher;
 
   factory _Teacher.fromJson(Map<String, dynamic> json) = _$_Teacher.fromJson;
 
@@ -315,6 +340,9 @@ abstract class _Teacher implements Teacher {
   @override
   @JsonKey(name: 'tempat_lahir')
   String get birthPlace;
+  @override
+  @JsonKey(name: 'kelas_id')
+  String? get classroomId;
   @override
   @JsonKey(ignore: true)
   _$$_TeacherCopyWith<_$_Teacher> get copyWith =>

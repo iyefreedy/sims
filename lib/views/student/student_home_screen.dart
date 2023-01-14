@@ -28,8 +28,7 @@ class StudentHomeScreen extends ConsumerWidget {
           children: [
             userAsyncValue.when(
               data: (data) {
-                final teacher =
-                    Student.fromJson(data.info as Map<String, dynamic>);
+                final student = data.student!;
                 return Material(
                   type: MaterialType.card,
                   elevation: 4.0,
@@ -49,14 +48,14 @@ class StudentHomeScreen extends ConsumerWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              teacher.name,
+                              student.name,
                               style: Theme.of(context)
                                   .textTheme
                                   .titleMedium
                                   ?.copyWith(fontWeight: FontWeight.w500),
                               overflow: TextOverflow.fade,
                             ),
-                            Text(teacher.nisn),
+                            Text(student.nisn),
                           ],
                         ),
                       ],
@@ -153,6 +152,25 @@ class StudentHomeScreen extends ConsumerWidget {
                             size: 50.0,
                           ),
                           Text('Profil'),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Card(
+                    elevation: 2.0,
+                    child: InkWell(
+                      onTap: () {
+                        Navigator.of(context).pushNamed(teacherProfileRoute);
+                      },
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: const [
+                          Icon(
+                            Icons.chat,
+                            color: Colors.tealAccent,
+                            size: 50.0,
+                          ),
+                          Text('Konsultasi'),
                         ],
                       ),
                     ),

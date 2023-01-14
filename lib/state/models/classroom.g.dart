@@ -11,6 +11,7 @@ _$_Classroom _$$_ClassroomFromJson(Map<String, dynamic> json) => _$_Classroom(
       name: json['nama'] as String,
       year: json['tahun_ajaran'] as String,
       group: json['kelompok'] as String,
+      teacherId: json['guru_id'] as String?,
       semester: json['semester'] as String,
       students: const ListStudentConverter().fromJson(json['siswa'] as List),
       attendances:
@@ -23,6 +24,7 @@ Map<String, dynamic> _$$_ClassroomToJson(_$_Classroom instance) =>
       'nama': instance.name,
       'tahun_ajaran': instance.year,
       'kelompok': instance.group,
+      'guru_id': instance.teacherId,
       'semester': instance.semester,
       'siswa': const ListStudentConverter().toJson(instance.students),
       'kehadiran': const ListAttendanceConverter().toJson(instance.attendances),

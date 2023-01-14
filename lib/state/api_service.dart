@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
 import 'package:sims/state/auth/provider/auth_token_provider.dart';
 import 'package:sims/state/models/attendance.dart';
+import 'package:sims/state/models/classroom.dart';
 
 import 'models/grade.dart';
 import 'models/schedule.dart';
@@ -16,7 +17,7 @@ final apiServiceProvider = StateProvider<ApiService>((ref) {
 });
 
 class ApiService {
-  static const baseUrl = 'http://192.168.54.47';
+  static const baseUrl = 'http://192.168.100.8';
   static const port = 8000;
 
   final String token;
@@ -138,5 +139,28 @@ class ApiService {
         .toList();
 
     return grades;
+  }
+
+  Future<Classroom> getClassroom(String classroomId) async {
+    try {
+      final response = await http.get(
+        Uri.parse('$baseUrl:$port/api/kelas/$classroomId'),
+        headers: {
+          HttpHeaders.acceptHeader: 'application/json',
+          HttpHeaders.authorizationHeader: 'Bearer $token',
+        },
+      );
+
+      log(response.body);
+
+      final jsonBody = jsonDecode(response.body) as Map<String, dynamic>;
+
+      final classroomJson = jsonBody['data'] as Map<String, dynamic>;
+      return Classroom.fromJson(classroomJson);
+    } catch (e) {
+      log('$e');
+
+      throw Exception(e);
+    }
   }
 }

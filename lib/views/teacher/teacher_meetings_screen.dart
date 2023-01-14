@@ -32,6 +32,11 @@ class MeetingScreenState {
         isLoading: false,
       );
 
+  MeetingScreenState copyWithLoading() => MeetingScreenState(
+        attendances: attendances,
+        isLoading: true,
+      );
+
   Map<DateTime, List<Attendance>> getGroupedMeeting() {
     return attendances.groupBy<DateTime>((p0) => p0.date);
   }
@@ -44,6 +49,7 @@ class MeetingScreenStateNotifier extends StateNotifier<MeetingScreenState> {
   }
 
   void loadData() async {
+    state = state.copyWithLoading();
     final attendaces = await service.getAttendances();
 
     state = MeetingScreenState(
@@ -53,6 +59,7 @@ class MeetingScreenStateNotifier extends StateNotifier<MeetingScreenState> {
   }
 
   void createAttendanceMeet(String classroomId) async {
+    state = state.copyWithLoading();
     final attendaces = await service.createAttendance(classroomId: classroomId);
 
     state = MeetingScreenState(
@@ -102,28 +109,36 @@ class TeacherMeetingsScreen extends ConsumerWidget {
                   final groupedAttendances = data
                       .where((e) => e.classroomId == classroomId)
                       .groupBy((p0) => p0.date);
-                  return ListView.builder(
-                    itemCount: groupedAttendances.length,
-                    itemBuilder: (context, index) {
-                      final keys = groupedAttendances.keys.toList();
-                      final title = keys[index];
-                      return ListTile(
-                        title: Text(
-                            'Pertemuan : ${DateFormat('dd-MM-yyyy').format(title)}'),
-                        trailing: const Icon(Icons.chevron_right),
-                        onTap: () {
-                          log('${meetings[key]}');
-                          Navigator.of(context).pushNamed(
-                            teacherAttendanceRoute,
-                            arguments: TeacherAttendanceArguments(
-                              clasroomId: classroomId,
-                              date: title,
-                            ),
-                          );
-                        },
-                      );
-                    },
-                  );
+
+                  return groupedAttendances.isNotEmpty
+                      ? ListView.builder(
+                          itemCount: groupedAttendances.length,
+                          itemBuilder: (context, index) {
+                            final keys = groupedAttendances.keys.toList();
+                            final title = keys[index];
+                            return ListTile(
+                              title: Text(
+                                  'Pertemuan : ${DateFormat('dd-MM-yyyy').format(title)}'),
+                              trailing: const Icon(Icons.chevron_right),
+                              onTap: () {
+                                log('${meetings[key]}');
+                                Navigator.of(context).pushNamed(
+                                  teacherAttendanceRoute,
+                                  arguments: TeacherAttendanceArguments(
+                                    clasroomId: classroomId,
+                                    date: title,
+                                  ),
+                                );
+                              },
+                            );
+                          },
+                        )
+                      : Center(
+                          child: Text(
+                            'Belum ada data pertemuan',
+                            style: Theme.of(context).textTheme.headline6,
+                          ),
+                        );
                 },
                 error: (error, stackTrace) => ErrorWidget(error),
                 loading: () => const ShimmerLoadingList(),

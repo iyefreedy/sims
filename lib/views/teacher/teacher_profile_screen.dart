@@ -17,7 +17,7 @@ class TeacherProfileScreen extends ConsumerWidget {
       ),
       body: userAsyncValue.when(
         data: (data) {
-          final teacher = Teacher.fromJson(data.info as Map<String, dynamic>);
+          final teacher = data.teacher!;
 
           return ListView(
             children: [

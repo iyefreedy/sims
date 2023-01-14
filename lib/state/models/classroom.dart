@@ -16,6 +16,7 @@ class Classroom with _$Classroom {
     @JsonKey(name: 'nama') required String name,
     @JsonKey(name: 'tahun_ajaran') required String year,
     @JsonKey(name: 'kelompok') required String group,
+    @JsonKey(name: 'guru_id') required String? teacherId,
     required String semester,
     @JsonKey(name: 'siswa')
     @ListStudentConverter()

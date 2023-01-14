@@ -16,6 +16,7 @@ class Teacher with _$Teacher {
     @StringDateTimeConverter()
         required DateTime birthDate,
     @JsonKey(name: 'tempat_lahir') required String birthPlace,
+    @JsonKey(name: 'kelas_id') required String? classroomId,
   }) = _Teacher;
 
   factory Teacher.fromJson(Map<String, dynamic> json) =>
