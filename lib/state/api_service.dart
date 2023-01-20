@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'dart:io';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
+import 'package:sims/app/constants.dart';
 import 'package:sims/state/auth/provider/auth_token_provider.dart';
 import 'package:sims/state/models/attendance.dart';
 import 'package:sims/state/models/classroom.dart';
@@ -17,16 +18,13 @@ final apiServiceProvider = StateProvider<ApiService>((ref) {
 });
 
 class ApiService {
-  static const baseUrl = 'http://192.168.100.8';
-  static const port = 8000;
-
   final String token;
 
   const ApiService(this.token);
 
   Future<List<Schedule>> getSchedules() async {
     final response = await http.get(
-      Uri.parse('$baseUrl:$port/api/jadwal'),
+      Uri.parse('$kApiBaseUrl:$kPort/api/jadwal'),
       headers: {
         HttpHeaders.acceptHeader: 'application/vnd.api+json',
         HttpHeaders.authorizationHeader: 'Bearer $token',
@@ -45,7 +43,7 @@ class ApiService {
 
   Future<List<Attendance>> getAttendances() async {
     final response = await http.get(
-      Uri.parse('$baseUrl:$port/api/kehadiran'),
+      Uri.parse('$kApiBaseUrl:$kPort/api/kehadiran'),
       headers: {
         HttpHeaders.acceptHeader: 'application/json',
         HttpHeaders.authorizationHeader: 'Bearer $token',
@@ -66,7 +64,7 @@ class ApiService {
   }) async {
     try {
       final response = await http.post(
-        Uri.parse('$baseUrl:$port/api/kehadiran'),
+        Uri.parse('$kApiBaseUrl:$kPort/api/kehadiran'),
         headers: {
           HttpHeaders.acceptHeader: 'application/json',
           HttpHeaders.authorizationHeader: 'Bearer $token',
@@ -96,7 +94,7 @@ class ApiService {
       List<Attendance> attendances) async {
     final requests = attendances.map((e) async {
       final response = await http.put(
-        Uri.parse('$baseUrl:$port/api/kehadiran/${e.id}'),
+        Uri.parse('$kApiBaseUrl:$kPort/api/kehadiran/${e.id}'),
         headers: {
           HttpHeaders.acceptHeader: 'application/json',
           HttpHeaders.authorizationHeader: 'Bearer $token',
@@ -120,7 +118,7 @@ class ApiService {
 
   Future<List<Grade>> getGrades() async {
     final uri = Uri.parse(
-      '$baseUrl:$port/api/nilai',
+      '$kApiBaseUrl:$kPort/api/nilai',
     );
     final response = await http.get(
       uri,
@@ -144,7 +142,7 @@ class ApiService {
   Future<Classroom> getClassroom(String classroomId) async {
     try {
       final response = await http.get(
-        Uri.parse('$baseUrl:$port/api/kelas/$classroomId'),
+        Uri.parse('$kApiBaseUrl:$kPort/api/kelas/$classroomId'),
         headers: {
           HttpHeaders.acceptHeader: 'application/json',
           HttpHeaders.authorizationHeader: 'Bearer $token',
@@ -162,5 +160,34 @@ class ApiService {
 
       throw Exception(e);
     }
+  }
+
+  Future<Grade> updateGrade(Grade grade) async {
+    // try {
+    final response = await http.put(
+      Uri.parse('$kApiBaseUrl:$kPort/api/nilai/${grade.id}'),
+      headers: {
+        HttpHeaders.acceptHeader: 'application/json',
+        HttpHeaders.authorizationHeader: 'Bearer $token',
+      },
+      body: {
+        'tugas': '${grade.tugas}',
+        'uts': '${grade.uts}',
+        'uas': '${grade.uas}',
+        'is_published': '${grade.isPublished}',
+      },
+    );
+
+    log(response.body);
+
+    final jsonBody = jsonDecode(response.body) as Map<String, dynamic>;
+
+    final gradeJson = jsonBody['data'] as Map<String, dynamic>;
+    return Grade.fromJson(gradeJson);
+    // } catch (e) {
+    //   log('$e');
+
+    //   throw Exception(e);
+    // }
   }
 }

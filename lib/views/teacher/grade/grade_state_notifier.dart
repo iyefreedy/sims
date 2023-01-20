@@ -31,6 +31,21 @@ class GradeStateNotifier extends StateNotifier<GradeState> {
     );
   }
 
+  void saveData() async {
+    state = state.copyWithIsLoading();
+    final updateRequests = state.data.map((e) async {
+      final grade = await service.updateGrade(e);
+      return grade;
+    });
+
+    final grades = await Future.wait(updateRequests);
+
+    state = GradeState(
+      data: grades,
+      isLoading: false,
+    );
+  }
+
   void updateUTSGrade(String id, int? value) {
     state = GradeState(
       data: [

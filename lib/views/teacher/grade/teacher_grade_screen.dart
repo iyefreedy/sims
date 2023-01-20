@@ -35,18 +35,11 @@ class TeacherGradeScreen extends ConsumerWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                ElevatedButton(
-                  onPressed: () {},
-                  child: const Text('Publish Nilai'),
-                ),
-                ElevatedButton(
-                  onPressed: () {},
-                  child: const Text('Simpan Nilai'),
-                ),
-              ],
+            ElevatedButton(
+              onPressed: () {
+                ref.watch(gradeStateProvider(arguments).notifier).saveData();
+              },
+              child: const Text('Simpan Nilai'),
             ),
             const SizedBox(height: 12.0),
             Expanded(

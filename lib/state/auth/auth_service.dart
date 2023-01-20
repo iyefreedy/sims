@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:sims/app/constants.dart';
 import 'package:sims/state/auth/models/token.dart';
 import 'package:http/http.dart' as http;
 import 'package:sims/state/auth/models/user.dart';
@@ -12,13 +13,10 @@ class AuthService {
   static const AuthService _instance = AuthService._();
   factory AuthService() => _instance;
 
-  final baseUrl = 'http://192.168.100.8';
-  final port = 8000;
-
   Future<bool> loginWithToken(Token token) async {
     try {
       final response = await http.get(
-        Uri.parse('$baseUrl:$port/api/user'),
+        Uri.parse('$kApiBaseUrl:$kPort/api/user'),
         headers: {
           HttpHeaders.acceptHeader: 'application/json',
           HttpHeaders.authorizationHeader: 'Bearer $token',
@@ -51,7 +49,7 @@ class AuthService {
   }) async {
     try {
       final response = await http.post(
-        Uri.parse('$baseUrl:$port/api/login'),
+        Uri.parse('$kApiBaseUrl:$kPort/api/login'),
         body: {
           'email': email,
           'password': password,
@@ -86,7 +84,7 @@ class AuthService {
   }) async {
     try {
       final response = await http.get(
-        Uri.parse('$baseUrl:$port/api/logout'),
+        Uri.parse('$kApiBaseUrl:$kPort/api/logout'),
         headers: {
           HttpHeaders.acceptHeader: 'application/json',
           HttpHeaders.authorizationHeader: 'Bearer $token',
@@ -106,7 +104,7 @@ class AuthService {
   }) async {
     try {
       final response = await http.get(
-        Uri.parse('$baseUrl:$port/api/user'),
+        Uri.parse('$kApiBaseUrl:$kPort/api/user'),
         headers: {
           HttpHeaders.acceptHeader: 'application/json',
           HttpHeaders.authorizationHeader: 'Bearer $token',

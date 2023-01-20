@@ -6,6 +6,7 @@ import 'package:sims/arguments/teacher_classroom_arguments.dart';
 import 'package:sims/enum/classroom_argument_type.dart';
 import 'package:sims/state/auth/provider/auth_user_provider.dart';
 import 'package:sims/state/models/teacher.dart';
+import 'package:sims/state/providers/classroom_provider.dart';
 import 'package:sims/utilites/dialogs/logout_dialog.dart';
 import 'package:sims/widgets/shimmer_card.dart';
 import 'package:sims/widgets/shimmer_grid.dart';
@@ -131,13 +132,13 @@ class TeacherHomeScreen extends ConsumerWidget {
                           ),
                         ),
                       ),
-                      if (teacher.classroomId != null)
+                      if (teacher.classroomId != null) ...[
                         Card(
                           elevation: 2.0,
                           child: InkWell(
                             onTap: () {
                               Navigator.of(context).pushNamed(
-                                teacherConsultRoute,
+                                teacherHomeroomRoute,
                                 arguments: teacher.classroomId,
                               );
                             },
@@ -149,11 +150,12 @@ class TeacherHomeScreen extends ConsumerWidget {
                                   color: Colors.tealAccent,
                                   size: 50.0,
                                 ),
-                                Text('Konsultasi'),
+                                Text('Wali Kelas'),
                               ],
                             ),
                           ),
                         ),
+                      ],
                     ],
                   ),
                 ),
@@ -196,7 +198,7 @@ class TeacherHomeScreen extends ConsumerWidget {
   }
 }
 
-class _TeacherCard extends StatelessWidget {
+class _TeacherCard extends ConsumerWidget {
   const _TeacherCard({
     Key? key,
     required this.teacher,
@@ -205,7 +207,7 @@ class _TeacherCard extends StatelessWidget {
   final Teacher teacher;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Material(
       type: MaterialType.card,
       elevation: 4.0,
@@ -233,6 +235,13 @@ class _TeacherCard extends StatelessWidget {
                   overflow: TextOverflow.fade,
                 ),
                 Text(teacher.nuptk),
+                if (teacher.classroomId != null)
+                  ref.watch(classroomProvider(teacher.classroomId!)).when(
+                        data: (data) =>
+                            Text('Wali Kelas : ${data.name}${data.group}'),
+                        error: (error, s) => Text('$error'),
+                        loading: () => const Text(''),
+                      ),
               ],
             ),
           ],

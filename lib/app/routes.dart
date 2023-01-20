@@ -13,10 +13,13 @@ import 'package:sims/views/student/student_grade_screen.dart';
 import 'package:sims/views/student/student_schedule_screen.dart';
 import 'package:sims/views/teacher/attendance/teacher_attendance_screen.dart';
 import 'package:sims/views/teacher/course_list_screen.dart';
+import 'package:sims/views/teacher/homeroom_teacher_screen.dart';
 import 'package:sims/views/teacher/schedule_list_screen.dart';
+import 'package:sims/views/teacher/student_list_screen.dart';
 import 'package:sims/views/teacher/teacher_classroom_screen.dart';
 import 'package:sims/views/teacher/grade/teacher_grade_screen.dart';
 import 'package:sims/views/teacher/teacher_consult_screen.dart';
+import 'package:sims/views/teacher/teacher_home_screen.dart';
 import 'package:sims/views/teacher/teacher_meetings_screen.dart';
 import 'package:sims/views/teacher/teacher_profile_screen.dart';
 import 'package:sims/views/teacher/teacher_schedule_screen.dart';
@@ -32,7 +35,8 @@ const teacherMeetingsRoute = '/teacher/meeting';
 const teacherCourseRoute = '/teacher/course';
 const teacherScheduleToMeetingRoute = '/teacher/schedule-meeting';
 const teacherProfileRoute = '/teacher/profile';
-const teacherConsultRoute = '/teacher/consult';
+const teacherHomeroomRoute = '/teacher/homeroom';
+const studentListRoute = '/teacher/homerooms/students';
 
 // Student reoute
 const studentScheduleRoute = '/student/schedule';
@@ -94,11 +98,18 @@ Route<MaterialPageRoute> onGenerateRoutes(RouteSettings settings) {
         settings: settings,
       );
 
-    case teacherConsultRoute:
+    case teacherHomeroomRoute:
       return MaterialPageRoute(
-        builder: (context) => TeacherConsultScreen(
+        builder: (context) => HomeroomTeacherScreen(
           classroomId: settings.arguments as String,
         ),
+        settings: settings,
+      );
+
+    case studentListRoute:
+      return MaterialPageRoute(
+        builder: (context) =>
+            StudentListScreen(classroomId: settings.arguments as String),
         settings: settings,
       );
 
