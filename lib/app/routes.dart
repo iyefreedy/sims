@@ -7,8 +7,11 @@ import 'package:sims/arguments/teacher_meeting_arguments.dart';
 import 'package:sims/enum/classroom_argument_type.dart';
 import 'package:sims/state/models/attendance.dart';
 import 'package:sims/state/models/classroom.dart';
+import 'package:sims/state/models/student.dart';
+import 'package:sims/views/report/student_list_report.dart';
 import 'package:sims/views/student/course/student_course_screen.dart';
 import 'package:sims/views/student/student_attendance_screen.dart';
+import 'package:sims/views/student/student_consult_screen.dart';
 import 'package:sims/views/student/student_grade_screen.dart';
 import 'package:sims/views/student/student_schedule_screen.dart';
 import 'package:sims/views/teacher/attendance/teacher_attendance_screen.dart';
@@ -36,13 +39,16 @@ const teacherCourseRoute = '/teacher/course';
 const teacherScheduleToMeetingRoute = '/teacher/schedule-meeting';
 const teacherProfileRoute = '/teacher/profile';
 const teacherHomeroomRoute = '/teacher/homeroom';
+const teacherConsultRoute = '/teacher/consult';
 const studentListRoute = '/teacher/homerooms/students';
+const studentListReportRoute = '/teacher/homerooms/students/report';
 
 // Student reoute
 const studentScheduleRoute = '/student/schedule';
 const studentAttendanceRoute = '/student/attendance';
 const studentCourseRoute = '/student/course';
 const studentGradeRoute = '/student/grade';
+const studentConsultRoute = '/student/consult';
 
 Route<MaterialPageRoute> onGenerateRoutes(RouteSettings settings) {
   switch (settings.name) {
@@ -106,10 +112,26 @@ Route<MaterialPageRoute> onGenerateRoutes(RouteSettings settings) {
         settings: settings,
       );
 
+    case teacherConsultRoute:
+      return MaterialPageRoute(
+        builder: (context) => TeacherConsultScreen(
+          classroomId: settings.arguments as String,
+        ),
+        settings: settings,
+      );
+
     case studentListRoute:
       return MaterialPageRoute(
         builder: (context) =>
             StudentListScreen(classroomId: settings.arguments as String),
+        settings: settings,
+      );
+
+    case studentListReportRoute:
+      return MaterialPageRoute(
+        builder: (context) => StudentListReport(
+          students: settings.arguments as List<Student>,
+        ),
         settings: settings,
       );
 
@@ -136,6 +158,12 @@ Route<MaterialPageRoute> onGenerateRoutes(RouteSettings settings) {
     case studentGradeRoute:
       return MaterialPageRoute(
         builder: (context) => const StudentGradeScreen(),
+        settings: settings,
+      );
+
+    case studentConsultRoute:
+      return MaterialPageRoute(
+        builder: (context) => const StudentConsultScreen(),
         settings: settings,
       );
 

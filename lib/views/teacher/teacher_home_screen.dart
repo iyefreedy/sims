@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:sims/app/constants.dart';
 import 'package:sims/app/routes.dart';
 import 'package:sims/arguments/teacher_classroom_arguments.dart';
 import 'package:sims/enum/classroom_argument_type.dart';
@@ -220,29 +221,35 @@ class _TeacherCard extends ConsumerWidget {
         child: Row(
           mainAxisSize: MainAxisSize.max,
           children: [
-            Image.network(
-              'https://robohash.org/hicveldicta.png?size=100x100&set=set1',
+            ClipRRect(
+              borderRadius: BorderRadius.circular(999),
+              child: Image.network(
+                kImageUrl,
+              ),
             ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  teacher.name,
-                  style: Theme.of(context)
-                      .textTheme
-                      .titleMedium
-                      ?.copyWith(fontWeight: FontWeight.w500),
-                  overflow: TextOverflow.fade,
-                ),
-                Text(teacher.nuptk),
-                if (teacher.classroomId != null)
-                  ref.watch(classroomProvider(teacher.classroomId!)).when(
-                        data: (data) =>
-                            Text('Wali Kelas : ${data.name}${data.group}'),
-                        error: (error, s) => Text('$error'),
-                        loading: () => const Text(''),
-                      ),
-              ],
+            const SizedBox(width: 12.0),
+            Flexible(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    teacher.name,
+                    style: Theme.of(context)
+                        .textTheme
+                        .titleMedium
+                        ?.copyWith(fontWeight: FontWeight.w500),
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  Text(teacher.nuptk),
+                  if (teacher.classroomId != null)
+                    ref.watch(classroomProvider(teacher.classroomId!)).when(
+                          data: (data) =>
+                              Text('Wali Kelas : ${data.name}${data.group}'),
+                          error: (error, s) => Text('$error'),
+                          loading: () => const Text(''),
+                        ),
+                ],
+              ),
             ),
           ],
         ),

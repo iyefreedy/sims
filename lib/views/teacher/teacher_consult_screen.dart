@@ -21,7 +21,7 @@ class TeacherConsultScreen extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Menu Konsultasi'),
+        title: const Text('Konsultasi'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),

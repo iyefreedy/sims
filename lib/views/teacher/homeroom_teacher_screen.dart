@@ -19,13 +19,19 @@ class HomeroomTeacherScreen extends ConsumerWidget {
       body: ListView(
         children: [
           ListTile(
-            title: Text('Konsultasi'),
-            leading: Icon(Icons.chat),
+            title: const Text('Konsultasi'),
+            leading: const Icon(Icons.chat),
+            onTap: () {
+              Navigator.of(context).pushNamed(
+                teacherConsultRoute,
+                arguments: classroomId,
+              );
+            },
           ),
-          Divider(),
+          const Divider(),
           ListTile(
-            title: Text('Data Siswa'),
-            leading: Icon(Icons.person_search),
+            title: const Text('Data Siswa'),
+            leading: const Icon(Icons.person_search),
             onTap: () {
               Navigator.of(context).pushNamed(
                 studentListRoute,

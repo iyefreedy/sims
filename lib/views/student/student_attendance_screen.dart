@@ -43,20 +43,22 @@ class StudentAttendanceScreen extends ConsumerWidget {
             //     ),
             //   ],
             // ),
-            DataTable(
-              border: TableBorder.all(),
-              columns: [
-                for (var attendance in attendances)
-                  DataColumn(
-                    label:
-                        Text(DateFormat('dd-MM-yyyy').format(attendance.date)),
-                  ),
-              ],
-              rows: [
-                for (var attendance in attendances)
-                  DataRow(cells: [DataCell(Text('${attendance.type?.name}'))]),
-              ],
-            ),
+            if (attendances.isNotEmpty)
+              DataTable(
+                border: TableBorder.all(),
+                columns: [
+                  for (var attendance in attendances)
+                    DataColumn(
+                      label: Text(
+                          DateFormat('dd-MM-yyyy').format(attendance.date)),
+                    ),
+                ],
+                rows: [
+                  for (var attendance in attendances)
+                    DataRow(
+                        cells: [DataCell(Text('${attendance.type?.name}'))]),
+                ],
+              ),
           ],
         ),
       ),

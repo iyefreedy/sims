@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
+import 'package:sims/app/constants.dart';
 import 'package:sims/state/auth/provider/auth_user_provider.dart';
 import 'package:sims/state/models/teacher.dart';
 import 'package:sims/widgets/shimmer_loading_list.dart';
@@ -23,10 +24,14 @@ class TeacherProfileScreen extends ConsumerWidget {
             children: [
               Align(
                 alignment: Alignment.center,
-                child: Image.network(
-                  'https://robohash.org/hicveldicta.png?size=100x100&set=set1',
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(999),
+                  child: Image.network(
+                    kImageUrl,
+                  ),
                 ),
               ),
+              const SizedBox(height: 16.0),
               ...ListTile.divideTiles(
                 context: context,
                 tiles: [

@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:sims/app/constants.dart';
 import 'package:sims/enum/menu_action.dart';
 import 'package:sims/state/auth/provider/auth_state_provider.dart';
 import 'package:sims/state/auth/provider/auth_user_provider.dart';
-import 'package:sims/state/models/student.dart';
 import 'package:sims/utilites/dialogs/logout_dialog.dart';
 
 import '../../app/routes.dart';
-import '../../arguments/teacher_classroom_arguments.dart';
-import '../../enum/classroom_argument_type.dart';
 import '../../widgets/shimmer_card.dart';
 
 class StudentHomeScreen extends ConsumerWidget {
@@ -41,9 +39,13 @@ class StudentHomeScreen extends ConsumerWidget {
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
                       children: [
-                        Image.network(
-                          'https://robohash.org/hicveldicta.png?size=100x100&set=set1',
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(999),
+                          child: Image.network(
+                            kImageUrl,
+                          ),
                         ),
+                        const SizedBox(width: 12.0),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -160,7 +162,7 @@ class StudentHomeScreen extends ConsumerWidget {
                     elevation: 2.0,
                     child: InkWell(
                       onTap: () {
-                        Navigator.of(context).pushNamed(teacherProfileRoute);
+                        Navigator.of(context).pushNamed(studentConsultRoute);
                       },
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,

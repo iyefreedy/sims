@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sims/app/routes.dart';
 import 'package:sims/arguments/student_attendance_arguments.dart';
+import 'package:sims/state/providers/schedule_list_provider.dart';
 import 'package:sims/state/student/providers/student_schedule_list_provider.dart';
 import 'package:sims/widgets/shimmer_loading_list.dart';
 
@@ -10,7 +11,7 @@ class StudentCourseScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final scheduleAsyncValue = ref.watch(studentScheduleListProvider);
+    final scheduleAsyncValue = ref.watch(scheduleListProvider);
 
     final body = scheduleAsyncValue.when(
       data: (data) {
